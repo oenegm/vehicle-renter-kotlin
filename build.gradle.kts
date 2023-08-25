@@ -35,7 +35,6 @@ dependencies {
 	implementation("org.slf4j:slf4j-api:2.0.7")
 	implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")

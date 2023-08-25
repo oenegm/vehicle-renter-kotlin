@@ -1,4 +1,4 @@
-package com.project.vehiclerenterkotlin.repository;
+package com.project.vehiclerenterkotlin.repository
 
 import com.project.vehiclerenterkotlin.entity.Rating
 import org.springframework.data.jpa.repository.JpaRepository

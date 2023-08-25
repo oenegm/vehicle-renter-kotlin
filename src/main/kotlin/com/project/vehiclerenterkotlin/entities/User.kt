@@ -1,4 +1,4 @@
-package com.project.vehiclerenterkotlin.entity
+package com.project.vehiclerenterkotlin.entities
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull

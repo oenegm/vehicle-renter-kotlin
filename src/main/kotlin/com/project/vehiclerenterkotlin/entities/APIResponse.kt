@@ -1,4 +1,4 @@
-package com.project.vehiclerenterkotlin.entity
+package com.project.vehiclerenterkotlin.entities
 
 
 data class APIResponse(

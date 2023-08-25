@@ -1,6 +1,6 @@
-package com.project.vehiclerenterkotlin.repository
+package com.project.vehiclerenterkotlin.repositories
 
-import com.project.vehiclerenterkotlin.entity.VehicleSetting
+import com.project.vehiclerenterkotlin.entities.VehicleSetting
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

@@ -20,6 +20,10 @@ repositories {
 }
 
 extra["springCloudVersion"] = "2022.0.4"
+val mapstructSpringExtensionsVersion = "1.0.1"
+val dataSourceProxyVersion = "1.9.0"
+val kotlinLoggingVersion = "5.1.0"
+val mapstructVersion = "1.5.5.Final"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -33,12 +37,19 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 	implementation("org.slf4j:slf4j-api:2.0.7")
-	implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+	implementation("io.github.oshai:kotlin-logging-jvm:$kotlinLoggingVersion")
+	implementation("com.github.gavlyukovskiy:datasource-proxy-spring-boot-starter:$dataSourceProxyVersion")
+	implementation("org.mapstruct:mapstruct:$mapstructVersion")
+	implementation("org.mapstruct.extensions.spring:mapstruct-spring-extensions:$mapstructSpringExtensionsVersion")
+	implementation("org.mapstruct.extensions.spring:mapstruct-spring-annotations:$mapstructSpringExtensionsVersion")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
-	// TODO: add aws
+	annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+	testAnnotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+	annotationProcessor("org.mapstruct.extensions.spring:mapstruct-spring-extensions:${mapstructSpringExtensionsVersion}")
+	testAnnotationProcessor("org.mapstruct.extensions.spring:mapstruct-spring-extensions:${mapstructSpringExtensionsVersion}")
 }
 
 dependencyManagement {

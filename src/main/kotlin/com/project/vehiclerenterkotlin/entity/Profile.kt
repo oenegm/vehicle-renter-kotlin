@@ -7,29 +7,30 @@ import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity
-@Table(name = "brands")
-class Brand {
+@Table(name = "profiles")
+class Profile {
     @Id
     @GeneratedValue
     @UuidGenerator
     @Column(name = "id", nullable = false)
     var id: UUID? = null
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    var user: User? = null
+
     @Size(max = 45)
     @NotNull
     @Column(name = "name", nullable = false, length = 45)
     var name: String? = null
 
-    @Size(max = 45)
-    @NotNull
-    @Column(name = "country", nullable = false, length = 45)
-    var country: String? = null
-
     @Size(max = 255)
-    @NotNull
-    @Column(name = "image_link", nullable = false)
-    var imageLink: String? = null
+    @Column(name = "profile_picture_link")
+    var profilePictureLink: String? = null
 
-    @OneToMany(mappedBy = "brand")
-    private var vehicles: MutableSet<Vehicle> = mutableSetOf()
+    @Column(name = "bio", length = Integer.MAX_VALUE)
+    var bio: String? = null
+
+    @OneToMany(mappedBy = "profile")
+    var communicationMethods: MutableSet<CommunicationMethod> = mutableSetOf()
 }

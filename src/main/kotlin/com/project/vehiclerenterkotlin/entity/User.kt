@@ -1,53 +1,48 @@
 package com.project.vehiclerenterkotlin.entity
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.project.vehiclerenterkotlin.constants.Gender
 import jakarta.persistence.*
-import jakarta.validation.constraints.NotBlank
-import java.time.LocalDateTime
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Size
+import org.hibernate.annotations.UuidGenerator
+import java.time.Instant
+import java.util.*
 
 @Entity
-data class User(
+@Table(name = "users")
+class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    var id: Long? = null,
+    @GeneratedValue
+    @UuidGenerator
+    @Column(name = "id", nullable = false)
+    var id: UUID? = null
 
-    @Column(name = "username", unique = true)
-    var username: @NotBlank(message = "Username is required") String? = null,
+    @Size(max = 20)
+    @NotNull
+    @Column(name = "role", nullable = false, length = 20)
+    var role: String? = null
 
-    @Column(name = "name")
-    var name: @NotBlank(message = "Name is required") String? = null,
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "username", nullable = false)
+    var username: String? = null
 
-    @Column(name = "email", unique = true)
-    var email: @NotBlank(message = "Email is required") String? = null,
-
-    @JsonIgnore
+    @Size(max = 255)
     @Column(name = "password")
-    var password: @NotBlank(message = "Password is required") String? = null,
+    var password: String? = null
 
-    @Column(name = "phone_number")
-    var phoneNumber: @NotBlank(message = "Phone number is required") String? = null,
+    @NotNull
+    @Column(name = "created_at", nullable = false)
+    var createdAt: Instant? = null
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
-    var gender: @NotBlank(message = "Gender is required") Gender? = null,
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
-    var createdAt: LocalDateTime? = null,
-
-    @ManyToOne
-    val role: Role? = null,
-
-    @OneToMany(mappedBy = "owner")
-    val ownedVehicles: List<Vehicle>? = null,
+    @OneToOne(mappedBy = "user")
+    var profiles: Profile? = null
 
     @OneToMany(mappedBy = "renter")
-    val rentals: List<Rental>? = null,
-) {
-    @PrePersist
-    fun prePersist() {
-        createdAt = LocalDateTime.now()
-    }
+    var rentalRequests: MutableSet<RentalRequest> = mutableSetOf()
+
+    @OneToMany(mappedBy = "owner")
+    var vehicles: MutableSet<Vehicle> = mutableSetOf()
+
+    @OneToMany(mappedBy = "user")
+    var websiteSettings: MutableSet<WebsiteSetting> = mutableSetOf()
 }
